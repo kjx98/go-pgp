@@ -6,7 +6,7 @@ Layer on top of `golang.org/x/crypto/openpgp` to handle a few PGP use cases.
 
 ### Encryption
 
-[pgp/encrypt_test.go](pgp/encrypt_test.go)
+[encrypt_test.go](encrypt_test.go)
 
 #### Encrypt
 
@@ -31,7 +31,7 @@ decrypted, _ := pgp.Decrypt(privEntity, encrypted)
 
 ### Signing
 
-[pgp/sign_test.go](pgp/sign_test.go)
+[sign_test.go](sign_test.go)
 
 #### Sign
 

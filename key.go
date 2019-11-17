@@ -1,11 +1,12 @@
 package pgp
 
 import (
-	"golang.org/x/crypto/openpgp/packet"
 	"bytes"
 	"errors"
-	"golang.org/x/crypto/openpgp/armor"
 	"golang.org/x/crypto/openpgp"
+	"golang.org/x/crypto/openpgp/armor"
+	"golang.org/x/crypto/openpgp/packet"
+	"os"
 )
 
 func getPublicKeyPacket(publicKey []byte) (*packet.PublicKey, error) {
@@ -53,4 +54,14 @@ func getPrivateKeyPacket(privateKey []byte) (*packet.PrivateKey, error) {
 		return nil, errors.New("Unable to cast to Private Key")
 	}
 	return key, nil
+}
+
+func getKeyRing() (openpgp.EntityList, error) {
+	homeDir, _ := os.UserHomeDir()
+	if ff, err := os.Open(homeDir + "/.gnupg/pubring.gpg"); err != nil {
+		return nil, err
+	} else {
+		defer ff.Close()
+		return openpgp.ReadKeyRing(ff)
+	}
 }
