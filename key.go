@@ -57,7 +57,7 @@ func getPrivateKeyPacket(privateKey []byte) (*packet.PrivateKey, error) {
 }
 
 func getKeyRing() (openpgp.EntityList, error) {
-	homeDir, _ := os.UserHomeDir()
+	homeDir := os.Getenv("HOME")
 	if ff, err := os.Open(homeDir + "/.gnupg/pubring.gpg"); err != nil {
 		return nil, err
 	} else {
