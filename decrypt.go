@@ -1,15 +1,15 @@
 package pgp
 
 import (
-	"golang.org/x/crypto/openpgp"
-	"golang.org/x/crypto/openpgp/armor"
-	_ "crypto/sha256"
-	_ "golang.org/x/crypto/ripemd160"
 	"bytes"
+	"compress/gzip"
+	_ "crypto/sha256"
 	"errors"
 	"fmt"
+	"github.com/kjx98/openpgp"
+	"github.com/kjx98/openpgp/armor"
+	_ "golang.org/x/crypto/ripemd160"
 	"io/ioutil"
-	"compress/gzip"
 )
 
 func Decrypt(entity *openpgp.Entity, encrypted []byte) ([]byte, error) {

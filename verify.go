@@ -1,13 +1,13 @@
 package pgp
 
 import (
-	"errors"
-	"golang.org/x/crypto/openpgp"
-	"golang.org/x/crypto/openpgp/packet"
-	"golang.org/x/crypto/openpgp/armor"
-	"io"
 	"bytes"
+	"errors"
 	"fmt"
+	"github.com/kjx98/openpgp"
+	"github.com/kjx98/openpgp/armor"
+	"github.com/kjx98/openpgp/packet"
+	"io"
 )
 
 func Verify(publicKeyEntity *openpgp.Entity, message []byte, signature []byte) error {

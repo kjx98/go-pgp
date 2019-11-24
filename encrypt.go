@@ -1,14 +1,14 @@
 package pgp
 
 import (
-	"golang.org/x/crypto/openpgp"
 	"bytes"
-	"fmt"
-	"io"
-	"golang.org/x/crypto/openpgp/armor"
 	"compress/gzip"
 	_ "crypto/sha256"
+	"fmt"
+	"github.com/kjx98/openpgp"
+	"github.com/kjx98/openpgp/armor"
 	_ "golang.org/x/crypto/ripemd160"
+	"io"
 )
 
 func Encrypt(entity *openpgp.Entity, message []byte) ([]byte, error) {

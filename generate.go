@@ -1,9 +1,9 @@
 package pgp
 
 import (
-	"golang.org/x/crypto/openpgp"
 	"bytes"
-	"golang.org/x/crypto/openpgp/armor"
+	"github.com/kjx98/openpgp"
+	"github.com/kjx98/openpgp/armor"
 )
 
 type PGPKeyPair struct {
@@ -44,7 +44,7 @@ func GenerateKeyPair(fullname string, comment string, email string) (PGPKeyPair,
 	privateKey := buf.String()
 
 	return PGPKeyPair{
-		PublicKey: pubKey,
+		PublicKey:  pubKey,
 		PrivateKey: privateKey,
 	}, nil
 }
