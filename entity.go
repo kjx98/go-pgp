@@ -42,7 +42,7 @@ func createEntityFromKeys(pubKey *packet.PublicKey, privKey *packet.PrivateKey) 
 		PrivateKey: privKey,
 		Identities: make(map[string]*openpgp.Identity),
 	}
-	isPrimaryId := false
+	isPrimaryId := true
 
 	e.Identities[uid.Id] = &openpgp.Identity{
 		Name:   uid.Name,
@@ -60,23 +60,23 @@ func createEntityFromKeys(pubKey *packet.PublicKey, privKey *packet.PrivateKey) 
 		},
 	}
 
-	keyLifetimeSecs := uint32(86400 * 365)
+	//keyLifetimeSecs := uint32(86400 * 365)
 
 	e.Subkeys = make([]openpgp.Subkey, 1)
 	e.Subkeys[0] = openpgp.Subkey{
 		PublicKey:  pubKey,
 		PrivateKey: privKey,
 		Sig: &packet.Signature{
-			CreationTime:              currentTime,
-			SigType:                   packet.SigTypeSubkeyBinding,
-			PubKeyAlgo:                packet.PubKeyAlgoRSA,
-			Hash:                      config.Hash(),
-			PreferredHash:             []uint8{8}, // SHA-256
+			CreationTime: currentTime,
+			SigType:      packet.SigTypeSubkeyBinding,
+			PubKeyAlgo:   packet.PubKeyAlgoRSA,
+			Hash:         config.Hash(),
+			//PreferredHash:             []uint8{8}, // SHA-256
 			FlagsValid:                true,
 			FlagEncryptStorage:        true,
 			FlagEncryptCommunications: true,
 			IssuerKeyId:               &e.PrimaryKey.KeyId,
-			KeyLifetimeSecs:           &keyLifetimeSecs,
+			//KeyLifetimeSecs:           &keyLifetimeSecs,
 		},
 	}
 	return &e, nil
