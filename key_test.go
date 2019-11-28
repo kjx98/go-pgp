@@ -34,6 +34,17 @@ func TestKeyRing(t *testing.T) {
 		}
 		if ee.PrivateKey != nil {
 			fmt.Println("Private Encrypted:", ee.PrivateKey.Encrypted)
+			if ee.PrivateKey.Encrypted {
+				// TODO: console get passphrase
+				fmt.Print("Passphrase: ")
+				var passphrase string
+				fmt.Scan(&passphrase)
+				if err := ee.PrivateKey.Decrypt([]byte(passphrase)); err == nil {
+					fmt.Println("Passphrase ok")
+				} else {
+					fmt.Println("Invalid passphrase", err)
+				}
+			}
 		}
 	}
 
