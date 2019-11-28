@@ -18,6 +18,9 @@ func TestKeyRing(t *testing.T) {
 		for idN, _ := range ee.Identities {
 			fmt.Println("ID:", idN)
 		}
+		if ee.PrivateKey != nil {
+			fmt.Println("Private Encrypted:", ee.PrivateKey.Encrypted)
+		}
 	}
 	fmt.Println("test secring")
 	entity, err = getKeyRing("secring.gpg")
