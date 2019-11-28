@@ -56,9 +56,12 @@ func getPrivateKeyPacket(privateKey []byte) (*packet.PrivateKey, error) {
 	return key, nil
 }
 
-func getKeyRing() (openpgp.EntityList, error) {
+func getKeyRing(ringName string) (openpgp.EntityList, error) {
 	homeDir := os.Getenv("HOME")
-	if ff, err := os.Open(homeDir + "/.gnupg/pubring.gpg"); err != nil {
+	if ringName == "" {
+		ringName = "pubring.gpg"
+	}
+	if ff, err := os.Open(homeDir + "/.gnupg/" + ringName); err != nil {
 		return nil, err
 	} else {
 		defer ff.Close()
