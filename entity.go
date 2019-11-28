@@ -1,9 +1,9 @@
 package pgp
 
 import (
-	"golang.org/x/crypto/openpgp/packet"
-	"golang.org/x/crypto/openpgp"
 	"crypto"
+	"golang.org/x/crypto/openpgp"
+	"golang.org/x/crypto/openpgp/packet"
 )
 
 func GetEntity(publicKey []byte, privateKey []byte) (*openpgp.Entity, error) {
@@ -50,7 +50,7 @@ func createEntityFromKeys(pubKey *packet.PublicKey, privKey *packet.PrivateKey) 
 		SelfSignature: &packet.Signature{
 			CreationTime: currentTime,
 			SigType:      packet.SigTypePositiveCert,
-			PubKeyAlgo:   packet.PubKeyAlgoRSA,
+			PubKeyAlgo:   pubKey.PubKeyAlgo, //packet.PubKeyAlgoRSA,
 			Hash:         config.Hash(),
 			IsPrimaryId:  &isPrimaryId,
 			FlagsValid:   true,
@@ -64,12 +64,12 @@ func createEntityFromKeys(pubKey *packet.PublicKey, privKey *packet.PrivateKey) 
 
 	e.Subkeys = make([]openpgp.Subkey, 1)
 	e.Subkeys[0] = openpgp.Subkey{
-		PublicKey: pubKey,
+		PublicKey:  pubKey,
 		PrivateKey: privKey,
 		Sig: &packet.Signature{
 			CreationTime:              currentTime,
 			SigType:                   packet.SigTypeSubkeyBinding,
-			PubKeyAlgo:                packet.PubKeyAlgoRSA,
+			PubKeyAlgo:                pubKey.PubKeyAlgo, //packet.PubKeyAlgoRSA,
 			Hash:                      config.Hash(),
 			PreferredHash:             []uint8{8}, // SHA-256
 			FlagsValid:                true,
