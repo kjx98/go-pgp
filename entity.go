@@ -50,7 +50,7 @@ func createEntityFromKeys(pubKey *packet.PublicKey, privKey *packet.PrivateKey) 
 		SelfSignature: &packet.Signature{
 			CreationTime: currentTime,
 			SigType:      packet.SigTypePositiveCert,
-			PubKeyAlgo:   packet.PubKeyAlgoRSA,
+			PubKeyAlgo:   pubKey.PubKeyAlgo, //packet.PubKeyAlgoRSA,
 			Hash:         config.Hash(),
 			IsPrimaryId:  &isPrimaryId,
 			FlagsValid:   true,
@@ -67,11 +67,11 @@ func createEntityFromKeys(pubKey *packet.PublicKey, privKey *packet.PrivateKey) 
 		PublicKey:  pubKey,
 		PrivateKey: privKey,
 		Sig: &packet.Signature{
-			CreationTime: currentTime,
-			SigType:      packet.SigTypeSubkeyBinding,
-			PubKeyAlgo:   packet.PubKeyAlgoRSA,
-			Hash:         config.Hash(),
-			//PreferredHash:             []uint8{8}, // SHA-256
+			CreationTime:              currentTime,
+			SigType:                   packet.SigTypeSubkeyBinding,
+			PubKeyAlgo:                pubKey.PubKeyAlgo, //packet.PubKeyAlgoRSA,
+			Hash:                      config.Hash(),
+			PreferredHash:             []uint8{8}, // SHA-256
 			FlagsValid:                true,
 			FlagEncryptStorage:        true,
 			FlagEncryptCommunications: true,
